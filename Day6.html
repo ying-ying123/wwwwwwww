@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+1.请实现未知宽高的盒子在页面中水平垂直居中
+
+通过CSS的中的绝对定位实现
+#box{
+    width:100px;
+    height:100px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-50px;
+    margin-left:-50px;
+}
+通过CSS中的margin=auto,四个方向都为0的方法也可以实现
+#box{
+    width:200px;
+    height:200px;
+    margin:auto;
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+}
+还可以通过CSS3的弹性布局（flex），实现盒子的居中
+body {
+    display: flex;
+    align-items: center; /*定义body的元素垂直居中*/
+    justify-content: center; /*定义body的里的元素水平居中*/
+  }
+    #box{
+    height:200px;
+    width:200px;
+    background-color:red;
+    }
+
+2.简述盒模型、怎么修改盒模型
+盒子模型分为：内容区（content） 内边距（padding） 边框（border） 外边距（magin）
+.内容区
+用width和height指定内容区的宽和高
+..边框
+border-width:10px 顺序：四周 设置4个边的边框宽度
+border-width:10px 20px 30px 40px 顺序：上右下左 设置边框的宽度
+border-width:10px 20px 30px 顺序： 上，左右，下 设置边框的宽度
+border-width:10px 20px 顺序：上下，左右 设置边框的宽度
+
+还可以单独设置一边的边框高度，或者是颜色：border-top-width:10px 上边框的宽度设置为10px border-top-color:red 上边框的颜色设置为红色
+
+可以通过border-sytle设置边框的样式（solid实线，dotted点状虚线……）
+
+border: 颜色 样式 宽度 同时设置4个边的颜色，央视和宽度
+border-top:颜色 样式 宽度 同时设置上边框的颜色，样式，宽度
+...padding内边距
+padding:100px 4个边的内边距都是100px
+padding：100px 200px 顺序：上下，左右
+padding：100px 200px 300px 顺序： 上，左右，下
+padding：100px 200px 300px 400px 顺序：上右下左
+....
+margin-left/right/top/bottom:100px 设置 左/右/上/下 的外边距 （可以设置负值，向反方向移动）
+margin-left:auto/margin-right:auto 这两个都是设置水平居中
+
+margin设置的方式跟padding一样，
+margin:50px auto 10px 设置水平居中，auto就是根据父元素的自动调整
+
+如果 垂直方向上的 相邻 的两个外边距都被设置了， 会用最大值，而不是和
+如果 父子元素的上边距相邻，会一起移动，想要分离子元素，1.gei 给父元素设置上边框 或 上内边距
+!!!内联元素 无内容区的宽，高，水平方向的外边距求和
+display
+display:block 显示为块元素
+display:none 元素不会被显示，也不会占地方
+display:inline 元素显示为内联元素
+display:inline-block 元素显示为行内块元素
+
+3.src和href的区别
+href标识超文本引用，用在link和a等元素上，href是引用和页面关联，是在当前元素和引用资源之间建立联系
+src表示引用资源，表示替换当前元素，用在img，script，iframe上，src是页面内容不可缺少的一部分。
+
+href (Hypertext Reference)网络资源的位置，浏览器识别当前资源是一个样式表，页面解析不会暂停（由于浏览器需要样式规则去画或者渲染页面，渲染过程可能会被被暂停）。这与把css文件内容写在<style>标签里不相同，因此建议使用link标签而不是@import来吧样式表导入到html文档里。
+src (Source)属性仅仅 嵌入当前资源到当前文档元素定义的位置，在浏览器下载，编译，执行这个文件之前页面的加载和处理会被暂停。这个过程与把js文件放到<script>标签里类似。这也是建议把JS文件放到底部加载的原因。当然，img标签页与此类似。浏览器暂停加载直到提取和加载图像。
+
+4.简述8种position属性值
+ 1. static positon定位的默认值， 没有定位
+
+ 2. relative
+ 生成相对定位的元素， 相对于其正常位置进行定位， 一般在子元素设置absoute定位时， 给父元素设置relative
+ 元素的位置通过top、 right、 bottom、 left   控制， 其值的定位起点都是是父元素左上角(这点和absoute、 fixed不一样)
+
+ 3. absoute
+ 生成绝对定位的元素， 相对于 static 定位以外的第一个父元素进行定位
+ 元素的位置通过top、 right、 bottom、 left  控制， top、 left的定位起点是包含块左上角， right、 bottom的定位起点是包含块右下角
+
+ 4. fixed （ ie6不兼容）
+ 生成绝对定位的元素， 相对于浏览器窗口进行定位， 和absoute的区别是fixed不会跟随屏幕滚动(常见的各种贴屏广告)
+ 元素的位置通过top、 right、 bottom、 left  控制， top、 left的定位起点是包含块左上角， right、 bottom的定位起点是包含块右下角
+
+ 5. inherit
+ 规定应该从父元素继承 position 属性的值
+ inherit 关键字可用于任何 HTML 元素上的任何 CSS 属性
+ 兼容： ie7及以下版本不支持此属性
+
+ 6. initial 
+ 设置positon的值为默认值(static)
+ 兼容： ie不支持此属性
+ 问： 有了static为什么还会存在此属性， 不是多此一举？
+ 答： initial  关键字可用于任何 HTML 元素上的任何 CSS 属性， 不是postion特有的
+
+ 7. unset
+ 设置positon的值为不设置：
+ 如果该属性的默认属性是 继承属性(例如字体相关的默认属性基本都是继承)， 该值等同于  inherit
+ 如果该属性的默认属性 不是继承属性(例如pisition的默认属性为static)， 该值等同于  initial
+ 兼容： ie不支持此属性
+
+ 8. sticky
+ css3新属性， 它的表现就像position: relative和position: fixed的合体:
+     1. 在目标区域在屏幕中可见时， 它的行为就像position: relative;
+     2. 页面滚动时
+
+ 当父元素是body时
+     a.滚动距离小于屏幕高度或宽度， 它会固定在目标位置
+     b.滚动距离大于屏幕高度或宽度， 它的表现就像position: relative和1一样
+
+ 当父元素不是body， 在父元素高度内滚动时它会固定在目标位置， 就像fixed
+ 在父元素滚动为不可视时它的表现就像position: relative和1一样
+
+
+ 兼容： ie不兼容、google不完全兼容（thead、tr标签不支持）、firefox59以后兼容，之前版本不完全兼容(table标签不支持)
+
+
+  5.简述css hack
+
+ (1) 图片间隙 
+ 在div中插入图片，图片会将div下方撑大3px。
+ hack1：将<div>与<img>写在同一行。
+ hack2：给<img>添加display：block；
+ dt li 中的图片间隙。
+ hack：给<img>添加display：block；
+
+ (2) 默认高度，IE6以下版本中，部分块元素，拥有默认高度（低于18px）
+ hack1：给元素添加：font-size：0；
+ hack2：声明：overflow：hidden；
+ 表单行高不一致
+ hack1：给表单添加声明：float：left；height： ；border： 0；
+ 鼠标指针
+ hack：若统一某一元素鼠标指针为手型：cursor：pointer；
+ 当li内的a转化块元素时，给a设置float，IE里面会出现阶梯状
+ hack1：给a加display：inline-block；
+ hack2：给li加float：left；
+
+
+ 6.简述px、rem、em 的区别 怎么实现适配
+
+ px、rem、em都是用于设置字体的大小以及盒子的宽高，但是px不会因为浏览器尺寸的改变而改变，而em和rem会因为浏览器尺寸的变化而变化并且可以动态适配
+
+ px 是 pixel 的缩写，它的含义是像素的意思，在指定字体大小和元素的宽高的时候使用。像素是相对于显示器屏幕分辨率而言的
+ em是一个相对长度的单位，是相对于当前对象内文本的字体尺寸。如过我们未设置当前文本的字体尺寸，那么em就会相对于浏览器的默认字体尺寸
+ rem是CSS3中新增的一个相对单位，它与em的区别在于使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素。它的使用非常简单，通过改变根元素的大小就可以改变它的值
+
+     
+    
+    　　
+</body>
+</html>
